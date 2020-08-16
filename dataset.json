@@ -1,0 +1,154 @@
+{
+  "entities": {
+    "room": {
+      "automatically_extensible": false,
+      "data": [
+        {
+          "synonyms": [],
+          "value": "bedroom"
+        },
+        {
+          "synonyms": [
+            "main room",
+            "lounge"
+          ],
+          "value": "living room"
+        },
+        {
+          "synonyms": [
+            "yard",
+            "backyard"
+          ],
+          "value": "garden"
+        }
+      ],
+      "matching_strictness": 1.0,
+      "use_synonyms": true
+    }
+  },
+  "intents": {
+    "turnLightOff": {
+      "utterances": [
+        {
+          "data": [
+            {
+              "text": "Turn off the lights in the "
+            },
+            {
+              "entity": "room",
+              "slot_name": "room",
+              "text": "entrance"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "text": "turn the "
+            },
+            {
+              "entity": "room",
+              "slot_name": "room",
+              "text": "bathroom"
+            },
+            {
+              "text": "'s light out please"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "text": "switch off the light the "
+            },
+            {
+              "entity": "room",
+              "slot_name": "room",
+              "text": "kitchen"
+            },
+            {
+              "text": ", will you?"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "text": "Switch the "
+            },
+            {
+              "entity": "room",
+              "slot_name": "room",
+              "text": "bedroom"
+            },
+            {
+              "text": "'s lights off please"
+            }
+          ]
+        }
+      ]
+    },
+    "turnLightOn": {
+      "utterances": [
+        {
+          "data": [
+            {
+              "text": "Turn on the lights in the "
+            },
+            {
+              "entity": "room",
+              "slot_name": "room",
+              "text": "kitchen"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "text": "give me some light in the "
+            },
+            {
+              "entity": "room",
+              "slot_name": "room",
+              "text": "bathroom"
+            },
+            {
+              "text": " please"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "text": "Can you light up the "
+            },
+            {
+              "entity": "room",
+              "slot_name": "room",
+              "text": "living room"
+            },
+            {
+              "text": " ?"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "text": "switch the "
+            },
+            {
+              "entity": "room",
+              "slot_name": "room",
+              "text": "bedroom"
+            },
+            {
+              "text": "'s lights on please"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "language": "en"
+}
