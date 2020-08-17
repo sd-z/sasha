@@ -1,0 +1,12 @@
+[submodule "rhasspy/rhasspy-snips-nlu-hermes"]
+	path = rhasspy/rhasspy-snips-nlu-hermes
+	url = https://github.com/sd-z/rhasspy-snips-nlu-hermes.git
+[submodule "rhasspy/rhasspy-server-hermes"]
+	path = rhasspy/rhasspy-server-hermes
+	url = https://github.com/sd-z/rhasspy-server-hermes.git
+[submodule "rhasspy/rhasspy-dialogue-hermes"]
+	path = rhasspy/rhasspy-dialogue-hermes
+	url = https://github.com/sd-z/rhasspy-dialogue-hermes.git
+[submodule "rhasspy/rhasspy-hermes"]
+	path = rhasspy/rhasspy-hermes
+	url = https://github.com/sd-z/rhasspy-hermes.git
