@@ -1,0 +1,19 @@
+# Change the light in the kitchen and living room to 150 brightness and color red.
+alias: Switch Living Room Light
+trigger:
+    platform: event
+    event_type: rhasspy_SwitchLight
+action:
+-   service_template: >
+        {% if trigger.event.data.state == 'on' %}
+            light.turn_on
+        {% else %}
+            light.turn_off
+        {% endif %}
+    data:
+        entity_id:
+            - light.living_room_center
+-   service: rest_command.rhasspy_speak
+    data_template:
+        payload: >
+            'Turning the {{trigger.event.data.name}} {{trigger.event.data.state}}'

@@ -1,0 +1,17 @@
+#Return current time
+alias: Get Current Time
+trigger:
+    platform: event
+    event_type: rhasspy_GetTime
+action:
+-   service: rest_command.rhasspy_speak
+    data_template:
+        payload: >
+            "{% set response %}
+            {% if now().hour > 12 %}
+              {% set the_hours = now().hour - 12 %}
+            {% else %}
+              {% set the_hours = now().hour %}
+            {% endif %}
+            the time is {{ the_hours }} {{ now().minute }}
+            {% endset %} {{ response }}"

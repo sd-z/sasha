@@ -1,0 +1,22 @@
+# Change the light in the kitchen and living room to 150 brightness and color red.
+alias: Change Light Color
+trigger:
+    platform: event
+    event_type: rhasspy_ChangeColor
+
+action:
+-   service: rest_command.rhasspy_speak
+    data_template:
+        payload: >
+            {% if states('light.' +trigger.event.data['name'].replace(' ','_'))!='unknown'%}
+                Turning the {{trigger.event.data.name}} to {{trigger.event.data.color}}
+            {% else %}
+                "I am sorry i did not catch the name of the lamp."
+            {% endif%}
+            
+-   service: light.turn_on
+    data_template:
+        #color_name: "{{trigger.event.data['color']}}"
+        color_name: "{{trigger.event.data['color']}}"
+        entity_id: "{{'light.' +trigger.event.data['name'].replace(' ','_')}}"
+           

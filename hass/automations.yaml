@@ -1,1 +1,32 @@
-[]
+- id: '1598093562407'
+  alias: Change Light Color
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: Rhasspy_ChangeColor
+    platform: event
+  condition: []
+  action:
+  - data_template:
+      color_name:"event.":
+    entity_id: light.living_room
+    service: light.turn_on
+  - data:
+      data_template:
+        payload: Turning the {{trigger.event.data.name}} to {{trigger.event.data.color}}
+    service: rest_command.rhasspy_speak
+  mode: single
+- id: '1598197747074'
+  alias: Switch Light Color on Event
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: lazy_Color
+    platform: event
+  condition: []
+  action:
+  - data_template:
+      'color_name:': '{{trigger.event.data.color}}'
+      entity_id:": '{{trigger.event.data.name}}'
+    service: light.turn_on
+  mode: single
