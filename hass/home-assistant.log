@@ -1,2 +1,1 @@
-2020-08-23 19:13:46 WARNING (Recorder) [homeassistant.components.recorder] Ended unfinished session (id=65 from 2020-08-23 19:11:19.641995)
-2020-08-23 19:14:23 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.living_room_to
+2020-08-26 01:37:09 WARNING (Recorder) [homeassistant.components.recorder] Ended unfinished session (id=66 from 2020-08-23 19:13:46.475628)
