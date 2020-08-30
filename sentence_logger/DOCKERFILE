@@ -1,0 +1,14 @@
+FROM shedz/sashav2
+
+WORKDIR /sasha_sentence_logger
+# Download pre-trained English model files
+RUN curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.8.1/deepspeech-0.8.1-models.tflite
+
+RUN apt-get install --yes \
+    libatlas-base-dev portaudio19-dev gfortran\
+    sox alsa-utils libgfortran4 libopenblas-dev 
+
+COPY ./requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+RUN pip3 install numpy scipy
