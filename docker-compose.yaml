@@ -26,10 +26,9 @@ services:
         image: shedz/rhasspy:v0.4
         volumes:
             - "$HOME/.config/rhasspy/profiles:/profiles"
-            - "/etc/localtime:etc/localtime:ro"
-            - /home/pi/.asoundrc:etc/asound.conf
+            - /home/pi/.asoundrc:/etc/asound.conf
         devices:
             - "/dev/snd:/dev/snd"
-        command: /usr/lib/rhasspy/bin/rhasspy_voltron.sh --user-profiles /profiles --profile en
+        #command: ["/bin/bash", "/usr/lib/rhasspy/bin/rhasspy-voltron.sh", "--user-profiles", "/profiles", "--profile", "en"]
         ports:
-            -"12101:12101" 
+            - "12101:12101" 
