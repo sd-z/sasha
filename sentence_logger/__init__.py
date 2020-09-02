@@ -236,6 +236,7 @@ class Conversation():
         Transcribes Conversation line fand send transcription to Command Handler.
         """
         try:
+            
             # Start audio with VAD
             vad_audio = VADAudio(
                             self.aggressiveness,
@@ -253,6 +254,7 @@ class Conversation():
             spinner = None
             if not self.nospinner:
                 spinner = Halo(spinner='line')
+                global COMMAND_START
                 COMMAND_START=time.perf_counter()
             stream_context = self.model.createStream()
             wav_data = bytearray()
@@ -267,16 +269,15 @@ class Conversation():
                 else:
                     if spinner: 
                         spinner.stop()
+                        global COMMAND_END
                         COMMAND_END=time.perf_counter()
                     logging.debug("end utterence")
-                    if self.savewav:
-                        global RECORDNO
-                        RECORDNO+=1
-                        vad_audio.write_wav(os.path.join(self.savewav, "command_recording("+str(RECORDNO)+").wav"), wav_data)
-                        wav_data = bytearray()
                     line = stream_context.finishStream()
                     if (line):
+                        global RECORDNO
+                        RECORDNO+=1
                         logging.info(str(RECORDNO)+" Recognized: %s \n Detecting Wakeword..." % line)
+                        global TRANSCRIPTION_END
                         TRANSCRIPTION_END = time.perf_counter()
                         self.save_conversation_log(line)
                         #Posting the data to local command handler
@@ -285,6 +286,7 @@ class Conversation():
                             logging.info("WAV Length: %s STT-Transcription Time: %s",str(COMMAND_END-COMMAND_START),str(TRANSCRIPTION_END-COMMAND_END))
                             line=line.replace(self.hotword,'')
                             intentname = cHandler.recognize_intent(line=line) 
+                            global EXECUTION_START
                             EXECUTION_START = time.perf_counter()
                             logging.info("Intent Recognition Time: %s Execution Started after %s",str(EXECUTION_START-TRANSCRIPTION_END),str(EXECUTION_START-COMMAND_END))
                             if intentname:
@@ -292,6 +294,7 @@ class Conversation():
                                     if index<len(backlog):
                                         potcmd =  await cHandler.save_potential_intent(intentname,potential)
                                         if potcmd > THRESHOLD:
+                                            global TRAIN_START
                                             TRAIN_START= time.perf_counter()
                                             print("Possible new Command detected")
                                             cHandler.update_intents(intentname,potential)
@@ -300,6 +303,9 @@ class Conversation():
                         elif self.hotword not in line:
                             cHandler.recognize_intent(line=line,implicit=True)
                     stream_context = self.model.createStream()
+                    if self.savewav:
+                        vad_audio.write_wav(os.path.join(self.savewav, "command_recording("+str(RECORDNO)+").wav"), wav_data)
+                        wav_data = bytearray()
         except KeyboardInterrupt:
             print('stopping...')
         finally:
@@ -372,7 +378,8 @@ class CommandHandler():
         if r.text == 'OK':
             # requests.post(os.path.join(self.server,'train'))
             self.server.train()
-            TRAiN_END=time.perf_counter
+            global TRAIN_END
+            TRAIN_END=time.perf_counter
             logging.info("Training Done After %s s",str(TRAiN_END-TRAIN_START))
             # requests.post(os.path.join(self.server,'handle-intent'))
             self.server.tts(command, intent)
