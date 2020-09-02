@@ -398,7 +398,7 @@ class CommandHandler():
         slotsVar = "$"+intent.lower()+"{"+intent.lower()+"}"
         cparse= configparser.ConfigParser(allow_no_value=True)
         cparse.read_string(res.text)
-        commands:list=cparse[intent].keys()
+        commands=list(cparse[intent].keys())
         logging.info("Command List %s", commands)
         #Checking if slot var already exists
         if not slotsVar in commands:
