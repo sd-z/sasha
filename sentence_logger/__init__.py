@@ -254,13 +254,13 @@ class Conversation():
             spinner = None
             if not self.nospinner:
                 spinner = Halo(spinner='line')
-                global COMMAND_START
-                COMMAND_START=time.perf_counter()
             stream_context = self.model.createStream()
             wav_data = bytearray()
             for frame in frames:
                 if frame is not None:
                     if spinner: 
+                        global COMMAND_START
+                        COMMAND_START=time.perf_counter()
                         spinner.start()
                     logging.debug("streaming frame")
                     stream_context.feedAudioContent(np.frombuffer(frame, np.int16))
