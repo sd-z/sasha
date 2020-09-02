@@ -9,11 +9,18 @@ import glob,json
 from threading import Thread
 from .conversation import VADAudio
 import collections
+import time
 
 RESTSERVER='http://192.168.178.17:12101/api'
 THRESHOLD=1
 LOGPATH="./transcript.txt"
-
+COMMAND_START=0.0
+COMMAND_END=0.0
+TRANSCRIPTION_END = 0.0
+EXECUTION_START =0.0
+TRAIN_START=0.0
+TRAiN_END =0.0
+SAVE_CMD=0.0
 class Server():
     """
     Abstract the connection to the API through this Server class.
@@ -245,6 +252,7 @@ class Conversation():
             spinner = None
             if not self.nospinner:
                 spinner = Halo(spinner='line')
+                COMMAND_START=time.perf_counter()
             stream_context = self.model.createStream()
             wav_data = bytearray()
             for frame in frames:
@@ -258,26 +266,34 @@ class Conversation():
                 else:
                     if spinner: 
                         spinner.stop()
+                        COMMAND_END=time.perf_counter()
                     logging.debug("end utterence")
                     if self.savewav:
                         vad_audio.write_wav(os.path.join(self.savewav, "command_recording.wav"), wav_data)
                         wav_data = bytearray()
                     line = stream_context.finishStream()
                     if (line):
-                        logging.info("Recognized: %s" % line)
+                        logging.info("Recognized: %s \n Detecting Wakeword..." % line)
+                        TRANSCRIPTION_END = time.perf_counter()
                         self.save_conversation_log(line)
                         #Posting the data to local command handler
                         backlog.append(line)
                         if self.hotword in line and len(line) != len(self.hotword):
+                            logging.info("WAV Length: %s STT-Transcription Time: %s",str(COMMAND_END-COMMAND_START),str(TRANSCRIPTION_END-COMMAND_END))
                             line=line.replace(self.hotword,'')
                             intentname = cHandler.recognize_intent(line=line) 
+                            EXECUTION_START = time.perf_counter()
+                            logging.info("Intent Recognition Time: %s Execution Started after %s",str(EXECUTION_START-TRANSCRIPTION_END),str(EXECUTION_START-COMMAND_END))
                             if intentname:
                                 for index,potential in enumerate(backlog):
                                     if index<len(backlog):
                                         potcmd =  await cHandler.save_potential_intent(intentname,potential)
                                         if potcmd > THRESHOLD:
+                                            TRAIN_START= time.perf_counter()
                                             print("Possible new Command detected")
                                             cHandler.update_intents(intentname,potential)
+                                    SAVE_CMD = time.perf_counter()
+                                    logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
                         elif self.hotword not in line:
                             cHandler.recognize_intent(line=line,implicit=True)
                     stream_context = self.model.createStream()
@@ -322,7 +338,7 @@ class CommandHandler():
             potential(str): Transcribed sentence leading up to the command
         
         Returns:
-            int: occurence of potential for this intent
+            int: occurence of potential new commands for this intent
         """
         preIntents = {}
         if not intent in self.potentials.keys():
@@ -353,6 +369,8 @@ class CommandHandler():
         if r.text == 'OK':
             # requests.post(os.path.join(self.server,'train'))
             self.server.train()
+            TRAiN_END=time.perf_counter
+            logging.info("Training Done After %s s",str(TRAiN_END-TRAIN_START))
             # requests.post(os.path.join(self.server,'handle-intent'))
             self.server.tts(command, intent)
     
@@ -366,14 +384,12 @@ class CommandHandler():
         Returns:
             [type]: [description]
         """
-        #sentences_api_path=os.path.join(self.server,'sentences')
-        #res = requests.get(sentences_api_path)
         res = self.server.get_intents()
         slotsVar = "$"+intent.lower()+"{"+intent.lower()+"}"
         cparse= configparser.ConfigParser(allow_no_value=True)
         cparse.read_string(res.text)
         commands:list=cparse[intent].keys()
-        print(commands)
+        logging.info("Command List %s", commands)
         #Checking if slot var already exists
         if not slotsVar in commands:
             print("Not included:",slotsVar)
@@ -383,6 +399,5 @@ class CommandHandler():
                 cparse.write(update)
                 print("Helo from the update site ",update)
                 self.server.save_intents(update.getvalue())
-            #requests.post(sentences_api_path,update.getvalue(),headers={'Content-Type':'octet-stream'})
             print("End")
         return self.addCommand(newTrigger,intent)
