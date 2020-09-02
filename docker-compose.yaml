@@ -5,8 +5,7 @@ services:
         volumes: 
             - ./sentence_logger:/sasha_sentence_logger/sasha_sentence_logger
             - /home/pi/.asoundrc:/etc/asound.conf
-            #- /home/pi/Public/sasha/homeassistant:/root/.homeassistant
-        command: python -m sasha_sentence_logger
+        entrypoint: ["python","-m" ,"sasha_sentence_logger"]
         #command: python -m dev
         devices: 
             - "/dev/snd:/dev/snd"
@@ -23,12 +22,11 @@ services:
         environment: 
             - "TZ=Europe/Berlin"
     rhasspy:
-        image: shedz/rhasspy:v0.4
+        image: shedz/rhasspy:v0.5
         volumes:
-            - "$HOME/.config/rhasspy/profiles:/profiles"
-            - /home/pi/.asoundrc:/etc/asound.conf
+            - /home/pi/.config/rhasspy/profiles:/profiles
         devices:
             - "/dev/snd:/dev/snd"
-        #command: ["/bin/bash", "/usr/lib/rhasspy/bin/rhasspy-voltron.sh", "--user-profiles", "/profiles", "--profile", "en"]
+        entrypoint: ["bash","/usr/lib/rhasspy/bin/rhasspy-voltron", "--user-profiles", "/profiles", "--profile", "en"]
         ports:
             - "12101:12101" 
