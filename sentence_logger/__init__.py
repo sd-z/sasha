@@ -198,11 +198,11 @@ class Conversation():
         #Initialise DeepSpeech model
         logging.info('Initializing model...')
         dirname = os.getcwd()
-        parentdir = os.path.split(dirname)[0]
+        parentdir = os.path.split(dirname)[1]
         # parpardir = os.path.split(parentdir)[0]
-
-        model_name = glob.glob(os.path.join(parentdir,'lib/deepspeech/*.tflite'))[0]
-        scorer_name = glob.glob(os.path.join(parentdir,'lib/deepspeech/*.scorer'))[0]
+        logging.info(parentdir)
+        model_name = glob.glob(os.path.join(dirname,'lib/*.tflite'))[0]
+        scorer_name = glob.glob(os.path.join(dirname,'lib/*.scorer'))[0]
         logging.info("Model: %s", model_name)
         logging.info("Language model: %s", scorer_name)
         self.model = deepspeech.Model(model_name)
