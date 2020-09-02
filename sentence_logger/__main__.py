@@ -30,7 +30,7 @@ def get_intent(dataset,text):
     #return snips.parse(text)
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--save",type=bool, help="Should wave files be recorded",default=None)
+    parser.add_argument("--save",type=str, help="Should wave files be recorded",default=None)
     return parser.parse_args()
 def main():
     "Fake Main for debian Script"

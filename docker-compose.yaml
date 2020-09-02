@@ -5,7 +5,8 @@ services:
         volumes: 
             - ./sentence_logger:/sasha_sentence_logger/sasha_sentence_logger
             - /home/pi/.asoundrc:/etc/asound.conf
-        entrypoint: ["python","-m" ,"sasha_sentence_logger"]
+            - /home/pi/sasha/input_saves:/sasha_sentence_logger/input_saves
+        entrypoint: ["python","-m" ,"sasha_sentence_logger","--save","/sasha_sentence_logger/input_saves"]
         #command: python -m dev
         devices: 
             - "/dev/snd:/dev/snd"

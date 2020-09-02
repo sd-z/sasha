@@ -270,7 +270,8 @@ class Conversation():
                         COMMAND_END=time.perf_counter()
                     logging.debug("end utterence")
                     if self.savewav:
-                        RECORDNO=RECORDNO+1
+                        global RECORDNO
+                        RECORDNO+=1
                         vad_audio.write_wav(os.path.join(self.savewav, "command_recording("+str(RECORDNO)+").wav"), wav_data)
                         wav_data = bytearray()
                     line = stream_context.finishStream()

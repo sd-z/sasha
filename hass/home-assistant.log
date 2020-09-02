@@ -1,1 +1,401 @@
-2020-08-26 01:37:09 WARNING (Recorder) [homeassistant.components.recorder] Ended unfinished session (id=66 from 2020-08-23 19:13:46.475628)
+2020-09-02 21:27:44 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:28:02 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:28:03 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:28:06 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:28:07 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:28:23 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:28:24 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:28:25 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:28:26 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:29:33 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_protocol.py", line 418, in start
+    resp = await task
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_app.py", line 458, in _handle
+    resp = await handler(request)
+  File "/usr/local/lib/python3.8/site-packages/aiohttp/web_middlewares.py", line 119, in impl
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/real_ip.py", line 39, in real_ip_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/ban.py", line 73, in ban_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/auth.py", line 127, in auth_middleware
+    return await handler(request)
+  File "/usr/src/homeassistant/homeassistant/components/http/view.py", line 129, in handle
+    result = await result
+  File "/usr/src/homeassistant/homeassistant/components/config/config_entries.py", line 145, in post
+    return await super().post(request, flow_id)
+  File "/usr/src/homeassistant/homeassistant/components/http/data_validator.py", line 60, in wrapper
+    result = await method(view, request, *args, **kwargs)
+  File "/usr/src/homeassistant/homeassistant/helpers/data_entry_flow.py", line 106, in post
+    result = await self._flow_mgr.async_configure(flow_id, data)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 153, in async_configure
+    result = await self._async_handle_step(flow, cur_step["step_id"], user_input)
+  File "/usr/src/homeassistant/homeassistant/data_entry_flow.py", line 201, in _async_handle_step
+    result: Dict = await getattr(flow, method)(user_input)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/config_flow.py", line 141, in async_step_link
+    api_key = await async_get_api_key(session, **self.deconz_config)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 22, in async_get_api_key
+    response = await async_request(session.post, url, auth=auth, data=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 89, in async_request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/utils.py", line 105, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.pydeconzException: / link button not pressed
+2020-09-02 21:30:45 ERROR (MainThread) [homeassistant.components.websocket_api.http.connection.2903231744] /lights/1/state parameter, on, not available
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/websocket_api/commands.py", line 125, in handle_call_service
+    await hass.services.async_call(
+  File "/usr/src/homeassistant/homeassistant/core.py", line 1250, in async_call
+    task.result()
+  File "/usr/src/homeassistant/homeassistant/core.py", line 1285, in _execute_service
+    await handler.func(service_call)
+  File "/usr/src/homeassistant/homeassistant/helpers/entity_component.py", line 208, in handle_service
+    await self.hass.helpers.service.entity_service_call(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 454, in entity_service_call
+    future.result()  # pop exception if have
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 595, in async_request_call
+    await coro
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 485, in _handle_entity_call
+    await result
+  File "/usr/src/homeassistant/homeassistant/components/light/__init__.py", line 242, in async_handle_light_on_service
+    await light.async_turn_on(**params)
+  File "/usr/src/homeassistant/homeassistant/components/deconz/light.py", line 175, in async_turn_on
+    await self._device.async_set_state(data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/deconzdevice.py", line 35, in async_set_state
+    await self.async_set(field, data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/api.py", line 112, in async_set
+    await self._request("put", field, json=data)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/gateway.py", line 106, in request
+    _raise_on_error(response)
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/gateway.py", line 220, in _raise_on_error
+    raise_error(data["error"])
+  File "/usr/local/lib/python3.8/site-packages/pydeconz/errors.py", line 58, in raise_error
+    raise cls("{} {}".format(error["address"], error["description"]))
+pydeconz.errors.RequestError: /lights/1/state parameter, on, not available
