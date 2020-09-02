@@ -31,6 +31,7 @@ def get_intent(dataset,text):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--save",type=str, help="Should wave files be recorded",default=None)
+    parser.add_argument("--aggressiveness",type=int, help="Should wave files be recorded",default=3)
     return parser.parse_args()
 def main():
     "Fake Main for debian Script"
@@ -47,7 +48,7 @@ hotword=subprocess.Popen(HotwordDetector(
 
 """
 _ARGS = parse_args()
-c=Conversation(aggressiveness=1,savewav=_ARGS.save)
+c=Conversation(aggressiveness=_ARGS.aggressiveness,savewav=_ARGS.save)
 asyncio.run(c.run())
 lastsent = collections.deque(maxlen=3)
 chandler = CommandHandler()
