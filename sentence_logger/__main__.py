@@ -12,6 +12,7 @@ import subprocess
 import collections
 import requests
 import asyncio
+import argparse
 
 
 HOTWORD = "porcupine"
@@ -27,7 +28,10 @@ def get_intent(dataset,text):
     """Get intent from transcribed text"""
     
     #return snips.parse(text)
-
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--save",type=bool, help="Should wave files be recorded",default=None)
+    return parser.parse_args()
 def main():
     "Fake Main for debian Script"
     pass
@@ -42,8 +46,8 @@ hotword=subprocess.Popen(HotwordDetector(
                             input_device_index=None).run(),shell=False,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 
 """
-print('1')
-c=Conversation(aggressiveness=1)
+_ARGS = parse_args()
+c=Conversation(aggressiveness=1,savewav=_ARGS.save)
 asyncio.run(c.run())
 lastsent = collections.deque(maxlen=3)
 chandler = CommandHandler()

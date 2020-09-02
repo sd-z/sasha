@@ -21,6 +21,7 @@ EXECUTION_START =0.0
 TRAIN_START=0.0
 TRAiN_END =0.0
 SAVE_CMD=0.0
+RECORDNO =0
 class Server():
     """
     Abstract the connection to the API through this Server class.
@@ -269,11 +270,12 @@ class Conversation():
                         COMMAND_END=time.perf_counter()
                     logging.debug("end utterence")
                     if self.savewav:
-                        vad_audio.write_wav(os.path.join(self.savewav, "command_recording.wav"), wav_data)
+                        RECORDNO=RECORDNO+1
+                        vad_audio.write_wav(os.path.join(self.savewav, "command_recording("+str(RECORDNO)+").wav"), wav_data)
                         wav_data = bytearray()
                     line = stream_context.finishStream()
                     if (line):
-                        logging.info("Recognized: %s \n Detecting Wakeword..." % line)
+                        logging.info(str(RECORDNO)+" Recognized: %s \n Detecting Wakeword..." % line)
                         TRANSCRIPTION_END = time.perf_counter()
                         self.save_conversation_log(line)
                         #Posting the data to local command handler
