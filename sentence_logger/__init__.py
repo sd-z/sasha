@@ -403,8 +403,7 @@ class CommandHandler():
         #Checking if slot var already exists
         if not slotsVar in commands:
             print("Not included:",slotsVar)
-            commands.append(slotsVar)
-            cparse.set(intent,newTrigger)
+            cparse.set(intent,slotsVar)
             with io.StringIO() as update:
                 cparse.write(update)
                 print("Helo from the update site ",update)
