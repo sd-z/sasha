@@ -286,9 +286,9 @@ class Conversation():
                         TRANSCRIPTION_END = time.perf_counter()
                         #Posting the data to local command handler
                         backlog.append(line)
-                        WAV_LEN=COMMAND_END-COMMAND_END
-                        STT_LEN=TRANSCRIPTION_END-COMMAND_END
-                        logging.info("WAV Length: %s STT-Transcription Time: %s",str(WAV_LEN),str(STT_LEN))
+                        WAV_LEN=str(COMMAND_END-COMMAND_END)
+                        STT_LEN=str(TRANSCRIPTION_END-COMMAND_END)
+                        logging.info("WAV Length: %s STT-Transcription Time: %s",WAV_LEN,STT_LEN)
                         if self.hotword in line and len(line) != len(self.hotword):
                             line=line.replace(self.hotword,'')
                             intentname = cHandler.recognize_intent(line=line) 
