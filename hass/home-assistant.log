@@ -474,3 +474,989 @@ homeassistant.exceptions.HomeAssistantError: Error rendering data template: Unde
 2020-09-03 17:04:51 WARNING (MainThread) [homeassistant.components.light] Got unknown color be, falling back to white
 2020-09-03 17:04:59 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
 2020-09-03 17:05:41 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.bedroom_like
+2020-09-03 18:22:31 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.bedroom_right
+2020-09-03 18:22:36 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.better_right
+2020-09-03 18:22:41 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.utero_right
+2020-09-03 18:22:45 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.bedroom_lit
+2020-09-03 18:22:55 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.on_porkypine
+2020-09-03 18:23:27 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:23:27 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:23:30 WARNING (MainThread) [homeassistant.components.automation] Change Light Color: Already running
+2020-09-03 18:23:30 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-03 18:23:47 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.light_to
+2020-09-03 18:23:59 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.living_room_lamp
+2020-09-03 18:24:04 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-03 18:24:04 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.living_room_lamp
+2020-09-03 18:24:17 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:24:17 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:24:33 WARNING (MainThread) [homeassistant.components.light] Got unknown color be, falling back to white
+2020-09-03 18:25:34 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.bark_upon
+2020-09-03 18:26:12 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-03 18:26:41 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.the_light
+2020-09-03 18:26:42 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:26:42 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:26:52 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-03 18:26:52 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.toledo
+2020-09-03 18:27:03 WARNING (MainThread) [homeassistant.components.light] Got unknown color cello, falling back to white
+2020-09-03 18:27:11 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-03 18:27:11 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.yellow_light
+2020-09-03 18:27:19 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-03 18:27:19 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.the_light
+2020-09-03 18:27:20 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:27:20 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:27:28 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:27:28 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:27:41 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.bread_light
+2020-09-03 18:27:42 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:27:42 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:27:48 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:27:48 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:27:58 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:27:58 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:29:22 WARNING (MainThread) [homeassistant.components.light] Got unknown color of, falling back to white
+2020-09-03 18:29:29 WARNING (MainThread) [homeassistant.components.light] Got unknown color of, falling back to white
+2020-09-03 18:29:53 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.bedroom_right
+2020-09-03 18:30:27 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-03 18:30:27 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.bedroom_little
+2020-09-03 18:31:34 WARNING (MainThread) [homeassistant.components.light] Got unknown color read, falling back to white
+2020-09-03 18:31:38 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:31:38 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:31:49 WARNING (MainThread) [homeassistant.components.light] Got unknown color dared, falling back to white
+2020-09-03 18:31:49 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.bedroom_i
+2020-09-03 18:32:06 WARNING (MainThread) [homeassistant.components.light] Got unknown color read, falling back to white
+2020-09-03 18:32:22 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:32:22 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:32:32 WARNING (MainThread) [homeassistant.components.light] Got unknown color read, falling back to white
+2020-09-03 18:32:37 WARNING (MainThread) [homeassistant.components.light] Got unknown color read, falling back to white
+2020-09-03 18:32:43 WARNING (MainThread) [homeassistant.components.light] Got unknown color tired, falling back to white
+2020-09-03 18:32:47 ERROR (MainThread) [homeassistant.components.automation] Change Light Color: Error executing script. Unexpected error for call_service at pos 1: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:32:47 ERROR (MainThread) [homeassistant.components.automation] While executing automation automation.change_light_color
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 229, in async_render
+    return compiled.render(kwargs).strip()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/usr/local/lib/python3.8/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/usr/local/lib/python3.8/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "<template>", line 1, in top-level template code
+  File "/usr/local/lib/python3.8/site-packages/jinja2/sandbox.py", line 407, in getattr
+    value = getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 132, in async_prepare_call_from_config
+    template.render_complex(config[CONF_SERVICE_DATA_TEMPLATE], variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in render_complex
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 73, in <dictcomp>
+    return {key: render_complex(item, variables) for key, item in value.items()}
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 75, in render_complex
+    return value.async_render(variables)
+  File "/usr/src/homeassistant/homeassistant/helpers/template.py", line 231, in async_render
+    raise TemplateError(err)
+homeassistant.exceptions.TemplateError: UndefinedError: 'dict object' has no attribute 'name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/automation/__init__.py", line 409, in async_trigger
+    await self.action_script.async_run(variables, trigger_context)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 756, in async_run
+    await asyncio.shield(run.async_run())
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 173, in async_run
+    await self._async_step(log_exceptions=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 181, in _async_step
+    await getattr(
+  File "/usr/src/homeassistant/homeassistant/helpers/script.py", line 342, in _async_call_service_step
+    domain, service, service_data = async_prepare_call_from_config(
+  File "/usr/src/homeassistant/homeassistant/helpers/service.py", line 135, in async_prepare_call_from_config
+    raise HomeAssistantError(f"Error rendering data template: {ex}") from ex
+homeassistant.exceptions.HomeAssistantError: Error rendering data template: UndefinedError: 'dict object' has no attribute 'name'
+2020-09-03 18:33:04 WARNING (MainThread) [homeassistant.components.light] Got unknown color read, falling back to white
+2020-09-03 18:33:42 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.living_room_lamp
+2020-09-03 18:33:53 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-03 18:34:02 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-03 18:34:08 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
