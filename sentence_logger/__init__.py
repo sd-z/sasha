@@ -12,7 +12,7 @@ import collections
 import time
 
 RESTSERVER='http://192.168.178.17:12101/api'
-THRESHOLD=1
+THRESHOLD=3
 LOGPATH="./transcript.txt"
 COMMAND_START=0.0
 COMMAND_END=0.0
@@ -216,7 +216,7 @@ class Conversation():
         logging.info("Language model: %s", scorer_name)
         self.model = deepspeech.Model(model_name)
         self.model.enableExternalScorer(scorer_name)
-        
+        self.started = False
     def save_conversation_log(self,line:str):
         """
         Saves the line to a text file
@@ -259,12 +259,12 @@ class Conversation():
             wav_data = bytearray()
             for frame in frames:
                 if frame is not None:
-                    if spinner and not STARTED: 
+                    if spinner and not self.started: 
+                        spinner.start()
                         global COMMAND_START
                         COMMAND_START=time.perf_counter()
-                        spinner.start()
-                        global STARTED
-                        STARTED= True
+                        self.started= True
+                        logging.info("Command Start")
                     logging.debug("streaming frame")
                     stream_context.feedAudioContent(np.frombuffer(frame, np.int16))
                     if self.savewav: 
@@ -274,8 +274,7 @@ class Conversation():
                         spinner.stop()
                         global COMMAND_END
                         COMMAND_END=time.perf_counter()
-                        global STARTED
-                        STARTED=False
+                        self.started=False
                     logging.debug("end utterence")
                     line = stream_context.finishStream()
                     if (line):
