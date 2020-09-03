@@ -13,8 +13,8 @@ import time
 
 RESTSERVER='http://192.168.178.17:12101/api'
 THRESHOLD=3
-LOGPATH="./transcript.txt"
-EVALPATH = "./benchmark.csv"
+LOGPATH="/sasha_sentence_logger/sasha_sentence_logger/transcript.txt"
+EVALPATH = "/sasha_sentence_logger/sasha_sentence_logger/benchmark.csv"
 COMMAND_START=0.0
 COMMAND_END=0.0
 TRANSCRIPTION_END = 0.0
@@ -286,7 +286,7 @@ class Conversation():
                         TRANSCRIPTION_END = time.perf_counter()
                         #Posting the data to local command handler
                         backlog.append(line)
-                        WAV_LEN=str(COMMAND_END-COMMAND_END)
+                        WAV_LEN=str(COMMAND_END-COMMAND_START)
                         STT_LEN=str(TRANSCRIPTION_END-COMMAND_END)
                         logging.info("WAV Length: %s STT-Transcription Time: %s",WAV_LEN,STT_LEN)
                         if self.hotword in line and len(line) != len(self.hotword):
@@ -310,7 +310,7 @@ class Conversation():
                             cHandler.recognize_intent(line=line,implicit=True)
                         self.save_to_file(line=line,path=LOGPATH)
                         if self.savewav:
-                            wav_name="command_recording("+str(RECORDNO)+").wav"
+                            wav_name="command_recording_b("+str(RECORDNO)+").wav"
                             vad_audio.write_wav(os.path.join(self.savewav,wav_name ), wav_data)
                             wav_data = bytearray()
                             benchmarkline = ",".join([wav_name,WAV_LEN,STT_LEN,line]) +";" 
