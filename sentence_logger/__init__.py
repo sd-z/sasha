@@ -14,6 +14,7 @@ import time
 RESTSERVER='http://192.168.178.17:12101/api'
 THRESHOLD=3
 LOGPATH="./transcript.txt"
+EVALPATH = "./benchmark.csv"
 COMMAND_START=0.0
 COMMAND_END=0.0
 TRANSCRIPTION_END = 0.0
@@ -217,18 +218,18 @@ class Conversation():
         self.model = deepspeech.Model(model_name)
         self.model.enableExternalScorer(scorer_name)
         self.started = False
-    def save_conversation_log(self,line:str):
+    def save_to_file(self,path:str,line:str):
         """
         Saves the line to a text file
 
         Args:
             line(str): Line of transcribed text
         """
-        if os.path.isfile(LOGPATH):
+        if os.path.isfile(path):
             mode = "a"
         else:
             mode = "w"
-        backup = open(LOGPATH, mode)
+        backup = open(path, mode)
         backup.write(line+"\n")
         backup.close
 
@@ -272,9 +273,9 @@ class Conversation():
                 else:
                     if spinner: 
                         spinner.stop()
-                        global COMMAND_END
-                        COMMAND_END=time.perf_counter()
-                        self.started=False
+                    global COMMAND_END
+                    COMMAND_END=time.perf_counter()
+                    self.started=False
                     logging.debug("end utterence")
                     line = stream_context.finishStream()
                     if (line):
@@ -283,11 +284,12 @@ class Conversation():
                         logging.info(str(RECORDNO)+" Recognized: %s \n Detecting Wakeword..." % line)
                         global TRANSCRIPTION_END
                         TRANSCRIPTION_END = time.perf_counter()
-                        self.save_conversation_log(line)
                         #Posting the data to local command handler
                         backlog.append(line)
+                        WAV_LEN=COMMAND_END-COMMAND_END
+                        STT_LEN=TRANSCRIPTION_END-COMMAND_END
+                        logging.info("WAV Length: %s STT-Transcription Time: %s",str(WAV_LEN),str(STT_LEN))
                         if self.hotword in line and len(line) != len(self.hotword):
-                            logging.info("WAV Length: %s STT-Transcription Time: %s",str(COMMAND_END-COMMAND_START),str(TRANSCRIPTION_END-COMMAND_END))
                             line=line.replace(self.hotword,'')
                             intentname = cHandler.recognize_intent(line=line) 
                             global EXECUTION_START
@@ -306,10 +308,14 @@ class Conversation():
                                     logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
                         elif self.hotword not in line:
                             cHandler.recognize_intent(line=line,implicit=True)
+                        self.save_to_file(line=line,path=LOGPATH)
+                        if self.savewav:
+                            wav_name="command_recording("+str(RECORDNO)+").wav"
+                            vad_audio.write_wav(os.path.join(self.savewav,wav_name ), wav_data)
+                            wav_data = bytearray()
+                            benchmarkline = ",".join([wav_name,WAV_LEN,STT_LEN,line]) +";" 
+                            self.save_to_file(line=benchmarkline,path=EVALPATH)
                     stream_context = self.model.createStream()
-                    if self.savewav:
-                        vad_audio.write_wav(os.path.join(self.savewav, "command_recording("+str(RECORDNO)+").wav"), wav_data)
-                        wav_data = bytearray()
         except KeyboardInterrupt:
             print('stopping...')
         finally:
