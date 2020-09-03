@@ -22,6 +22,7 @@ TRAIN_START=0.0
 TRAiN_END =0.0
 SAVE_CMD=0.0
 RECORDNO =0
+STARTED = False
 class Server():
     """
     Abstract the connection to the API through this Server class.
@@ -258,10 +259,12 @@ class Conversation():
             wav_data = bytearray()
             for frame in frames:
                 if frame is not None:
-                    if spinner: 
+                    if spinner and not STARTED: 
                         global COMMAND_START
                         COMMAND_START=time.perf_counter()
                         spinner.start()
+                        global STARTED
+                        STARTED= True
                     logging.debug("streaming frame")
                     stream_context.feedAudioContent(np.frombuffer(frame, np.int16))
                     if self.savewav: 
@@ -271,6 +274,8 @@ class Conversation():
                         spinner.stop()
                         global COMMAND_END
                         COMMAND_END=time.perf_counter()
+                        global STARTED
+                        STARTED=False
                     logging.debug("end utterence")
                     line = stream_context.finishStream()
                     if (line):
@@ -406,7 +411,6 @@ class CommandHandler():
             cparse.set(intent,slotsVar)
             with io.StringIO() as update:
                 cparse.write(update)
-                print("Helo from the update site ",update)
+                logging.info("sentences ini: %s",update.getvalue())
                 self.server.save_intents(update.getvalue())
-            print("End")
         return self.addCommand(newTrigger,intent)
