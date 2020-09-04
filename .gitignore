@@ -1,3 +1,5 @@
 */__pycache__/
 *hass/.*
 *input_saves/
+*benchmark*.csv
+*transcript.txt
