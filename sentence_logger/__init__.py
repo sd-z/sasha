@@ -290,6 +290,7 @@ class Conversation():
                         STT_LEN=str(TRANSCRIPTION_END-COMMAND_END)
                         logging.info("WAV Length: %s STT-Transcription Time: %s",WAV_LEN,STT_LEN)
                         if self.hotword in line and len(line) != len(self.hotword):
+                            hw_recognised=True
                             line=line.replace(self.hotword,'')
                             intentname = cHandler.recognize_intent(line=line) 
                             global EXECUTION_START
@@ -307,13 +308,14 @@ class Conversation():
                                     SAVE_CMD = time.perf_counter()
                                     logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
                         elif self.hotword not in line:
-                            cHandler.recognize_intent(line=line,implicit=True)
+                            intentname = cHandler.recognize_intent(line=line,implicit=True)
+                            hw_recognised=false
                         self.save_to_file(line=line,path=LOGPATH)
                         if self.savewav:
-                            wav_name="command_recording_c("+str(RECORDNO)+").wav"
+                            wav_name="command_recording_b("+str(RECORDNO)+").wav"
                             vad_audio.write_wav(os.path.join(self.savewav,wav_name ), wav_data)
                             wav_data = bytearray()
-                            benchmarkline = ",".join([wav_name,WAV_LEN,STT_LEN,line]) +";" 
+                            benchmarkline = ";".join([wav_name,WAV_LEN,STT_LEN,str(EXECUTION_START-TRANSCRIPTION_END),line,intentname,str(hw_recognised)])  
                             self.save_to_file(line=benchmarkline,path=EVALPATH)
                     stream_context = self.model.createStream()
         except KeyboardInterrupt:
