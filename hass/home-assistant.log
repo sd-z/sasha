@@ -1728,3 +1728,7 @@ homeassistant.exceptions.HomeAssistantError: Error rendering data template: Unde
 2020-09-04 11:10:20 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.was_a
 2020-09-04 11:10:44 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
 2020-09-04 11:21:20 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-04 14:38:36 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-04 15:11:15 WARNING (MainThread) [homeassistant.helpers.service] Unable to find referenced entities light.bedroom_did
+2020-09-04 15:16:27 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
+2020-09-04 15:16:50 WARNING (MainThread) [homeassistant.components.light] Got unknown color , falling back to white
