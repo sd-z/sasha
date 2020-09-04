@@ -310,7 +310,7 @@ class Conversation():
                             cHandler.recognize_intent(line=line,implicit=True)
                         self.save_to_file(line=line,path=LOGPATH)
                         if self.savewav:
-                            wav_name="command_recording_b("+str(RECORDNO)+").wav"
+                            wav_name="command_recording_c("+str(RECORDNO)+").wav"
                             vad_audio.write_wav(os.path.join(self.savewav,wav_name ), wav_data)
                             wav_data = bytearray()
                             benchmarkline = ",".join([wav_name,WAV_LEN,STT_LEN,line]) +";" 
