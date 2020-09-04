@@ -297,16 +297,7 @@ class Conversation():
                             EXECUTION_START = time.perf_counter()
                             logging.info("Intent Recognition Time: %s Execution Started after %s",str(EXECUTION_START-TRANSCRIPTION_END),str(EXECUTION_START-COMMAND_END))
                             if intentname:
-                                for index,potential in enumerate(backlog):
-                                    if index<len(backlog):
-                                        potcmd =  await cHandler.save_potential_intent(intentname,potential)
-                                        if potcmd > THRESHOLD:
-                                            global TRAIN_START
-                                            TRAIN_START= time.perf_counter()
-                                            print("Possible new Command detected")
-                                            cHandler.update_intents(intentname,potential)
-                                    SAVE_CMD = time.perf_counter()
-                                    logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
+                                asyncio.run(cHandler.adapt_intents(backlog,intentname))
                         elif self.hotword not in line:
                             intentname = cHandler.recognize_intent(line=line,implicit=True)
                             hw_recognised=False
@@ -351,6 +342,23 @@ class CommandHandler():
         except TypeError:
             return None
 
+    async def adapt_intents(self,backlog:list,intentname:str):
+        """Adapt intent patterns with sentences that occured before the command
+
+        Args:
+            backlog (list): list of last commands
+            intentname (str): Name of recognised intent
+        """
+        for index,potential in enumerate(backlog):
+            if index<len(backlog):
+                potcmd =  await self.save_potential_intent(intentname,potential)
+                if potcmd > THRESHOLD:
+                    global TRAIN_START
+                    TRAIN_START= time.perf_counter()
+                    print("Possible new Command detected")
+                    self.update_intents(intentname,potential)
+                SAVE_CMD = time.perf_counter()
+                logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
     async def save_potential_intent(self,intent:str,potential:str):
         """
         Save the sentences leading up to the command and return the occurence. 
@@ -391,7 +399,7 @@ class CommandHandler():
             # requests.post(os.path.join(self.server,'train'))
             self.server.train()
             global TRAIN_END
-            TRAIN_END=time.perf_counter
+            TRAIN_END=time.perf_counter()
             logging.info("Training Done After %s s",str(TRAiN_END-TRAIN_START))
             # requests.post(os.path.join(self.server,'handle-intent'))
             self.server.tts(command, intent)
