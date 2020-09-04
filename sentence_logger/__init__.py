@@ -14,7 +14,7 @@ import time
 RESTSERVER='http://192.168.178.17:12101/api'
 THRESHOLD=3
 LOGPATH="/sasha_sentence_logger/sasha_sentence_logger/transcript.txt"
-EVALPATH = "/sasha_sentence_logger/sasha_sentence_logger/benchmark.csv"
+EVALPATH = "/sasha_sentence_logger/sasha_sentence_logger/benchmark_pi4.csv"
 COMMAND_START=0.0
 COMMAND_END=0.0
 TRANSCRIPTION_END = 0.0
@@ -309,7 +309,7 @@ class Conversation():
                                     logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
                         elif self.hotword not in line:
                             intentname = cHandler.recognize_intent(line=line,implicit=True)
-                            hw_recognised=false
+                            hw_recognised=False
                         self.save_to_file(line=line,path=LOGPATH)
                         if self.savewav:
                             wav_name="command_recording_b("+str(RECORDNO)+").wav"
