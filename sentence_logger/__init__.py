@@ -361,7 +361,7 @@ class CommandHandler():
         except TypeError:
             return None
 
-    async def adapt_intents(self,backlog:list,intentname:str):
+    def adapt_intents(self,backlog:list,intentname:str):
         """Adapt intent patterns with sentences that occured before the command. If any commands were added retrain the assistant.
 
         Args:
@@ -371,17 +371,18 @@ class CommandHandler():
         global ADAPT_START
         ADAPT_START= time.perf_counter()
         update_list:list(tuple)=[]
-        for index,potential in enumerate(backlog): 
+        for index,potential in enumerate(backlog):
+            updated = False
             if index<len(backlog):
                 potcmd =  self.save_potential_intent(intentname,potential)
                 if potcmd > THRESHOLD:
                     global TRAIN_START
                     TRAIN_START= time.perf_counter()
                     updated=self.update_intents(intentname,potential)
+                    logging.info("Update Required:%s",str(updated))
             if updated:
                 update_list.append(updated)
         SAVE_CMD = time.perf_counter()
-        logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
         # Train if new command detected
         if len(update_list)>0:
             self.server.train()
@@ -393,7 +394,7 @@ class CommandHandler():
                 self.save_to_file(TRAIN_PATH,benchmark_line)
                 self.server.tts(command, intent)
 
-    async def save_potential_intent(self,intent:str,potential:str):
+    def save_potential_intent(self,intent:str,potential:str):
         """
         Save the sentences leading up to the command and return the occurence. 
         Args:
@@ -441,9 +442,11 @@ class CommandHandler():
         """
         req = self.server.getSlots()
         slots=req.json()
+        added = False
         if not command in slots[intent]:
             r = self.server.addCommand(command, intent)
-        return r.txt == 'OK'
+            added = r.text == 'OK'
+        return added
         
     
     def update_intents(self,intent:str,newTrigger):
@@ -466,7 +469,6 @@ class CommandHandler():
             cparse.set(intent,slotsVar)
             with io.StringIO() as update:
                 cparse.write(update)
-                logging.info("sentences ini: %s",update.getvalue())
                 self.server.save_intents(update.getvalue())
-        if self.addCommand(newTrigger,intent)
+        if self.addCommand(newTrigger,intent):
             return (newTrigger,intent)
