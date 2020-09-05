@@ -1,3 +1,4 @@
+import concurrent.futures
 import requests
 import asyncio,logging
 import os,io
@@ -300,7 +301,11 @@ class Conversation():
                             EXECUTION_START = time.perf_counter()
                             logging.info("Intent Recognition Time: %s Execution Started after %s",str(EXECUTION_START-TRANSCRIPTION_END),str(EXECUTION_START-COMMAND_END))
                             if intentname:
+<<<<<<< HEAD
                                 await cHandler.adapt_intents(backlog,intentname)
+=======
+                                save = asyncio.run_coroutine_threadsafe(cHandler.adapt_intents(backlog,intentname),asyncio.get_running_loop())
+>>>>>>> a2aaf40e87112ca580380cf919ebc794821c210a
                         elif self.hotword not in line:
                             global EXECUTION_START
                             EXECUTION_START = time.perf_counter()
