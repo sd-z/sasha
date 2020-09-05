@@ -15,6 +15,7 @@ RESTSERVER='http://192.168.178.17:12101/api'
 THRESHOLD=3
 LOGPATH="/sasha_sentence_logger/sasha_sentence_logger/transcript.txt"
 EVALPATH = "/sasha_sentence_logger/sasha_sentence_logger/benchmark_pi4.csv"
+TRAIN_PATH="/sasha_sentence_logger/sasha_sentence_logger/benchmark_train.csv"
 COMMAND_START=0.0
 COMMAND_END=0.0
 TRANSCRIPTION_END = 0.0
@@ -184,6 +185,7 @@ class Conversation():
             savewav=None,
             pauselength=300,
             nospinner=False,
+            no_logging = False,
             hotword ="porcupine"):
     
         """
@@ -193,7 +195,8 @@ class Conversation():
         :param wavfile: Read from .wav file instead of microphone
         :param savewav: Save .wav files of utterences to given directory
         :param pauselength: Set length of pauses between sentences. Default  is 300ms.
-        :param nospinner: Disable spinner
+        :param nospinner: Disable spinner.
+        :param no_logging: Disable logging conversation to text file.
 
         """
         self.aggressiveness=aggressiveness
@@ -204,7 +207,7 @@ class Conversation():
         self.pauselength=pauselength
         self.nospinner=nospinner
         self.hotword=hotword
-
+        self.no_logging=no_logging
         #Initialise DeepSpeech model
         logging.info('Initializing model...')
         dirname = os.getcwd()
@@ -297,11 +300,14 @@ class Conversation():
                             EXECUTION_START = time.perf_counter()
                             logging.info("Intent Recognition Time: %s Execution Started after %s",str(EXECUTION_START-TRANSCRIPTION_END),str(EXECUTION_START-COMMAND_END))
                             if intentname:
-                                asyncio.run(cHandler.adapt_intents(backlog,intentname))
+                                await cHandler.adapt_intents(backlog,intentname)
                         elif self.hotword not in line:
+                            global EXECUTION_START
+                            EXECUTION_START = time.perf_counter()
                             intentname = cHandler.recognize_intent(line=line,implicit=True)
                             hw_recognised=False
-                        self.save_to_file(line=line,path=LOGPATH)
+                        if(not self.no_logging)
+                            self.save_to_file(line=line,path=LOGPATH)
                         if self.savewav:
                             wav_name="command_recording_b("+str(RECORDNO)+").wav"
                             vad_audio.write_wav(os.path.join(self.savewav,wav_name ), wav_data)
@@ -316,6 +322,8 @@ class Conversation():
                 vad_audio.destroy()
 
 class CommandHandler():
+    """Class for recognising and modifying commands 
+    """
     def __init__(self):
         self.potentials={}
         self.server = Server()
@@ -383,11 +391,11 @@ class CommandHandler():
         return occurence
     
     def addCommand(self,command,intent):
-        """[summary]
+        """Add Command to Slot Values 
 
         Args:
-            command ([type]): [description]
-            intent ([type]): [description]
+            command (str): New command that should be recognised
+            intent (str): intent that should be connected with the command
         """
         # newData= {intent: [command]}
         # headers = {'Content-Type':'application/json'}
@@ -405,12 +413,10 @@ class CommandHandler():
             self.server.tts(command, intent)
     
     def update_intents(self,intent:str,newTrigger):
-        """[summary]
-
+        """Get sentences.ini file from Rhasspy and include slot variable if necessary. Then add the command.
         Args:
-            intent (str): [description]
-            newTrigger ([type]): [description]
-
+            intent (str): Intentname that will be adapted
+            newTrigger (str): New trigger that should be recognised
         Returns:
             [type]: [description]
         """
@@ -428,4 +434,4 @@ class CommandHandler():
                 cparse.write(update)
                 logging.info("sentences ini: %s",update.getvalue())
                 self.server.save_intents(update.getvalue())
-        return self.addCommand(newTrigger,intent)
+        self.addCommand(newTrigger,intent)
