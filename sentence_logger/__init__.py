@@ -213,8 +213,7 @@ class Conversation():
         logging.info('Initializing model...')
         dirname = os.getcwd()
         parentdir = os.path.split(dirname)[1]
-        # parpardir = os.path.split(parentdir)[0]
-        logging.info(parentdir)
+       logging.info(parentdir)
         model_name = glob.glob(os.path.join(dirname,'lib/*.tflite'))[0]
         scorer_name = glob.glob(os.path.join(dirname,'lib/*.scorer'))[0]
         logging.info("Model: %s", model_name)
@@ -301,17 +300,14 @@ class Conversation():
                             EXECUTION_START = time.perf_counter()
                             logging.info("Intent Recognition Time: %s Execution Started after %s",str(EXECUTION_START-TRANSCRIPTION_END),str(EXECUTION_START-COMMAND_END))
                             if intentname:
-<<<<<<< HEAD
-                                await cHandler.adapt_intents(backlog,intentname)
-=======
-                                save = asyncio.run_coroutine_threadsafe(cHandler.adapt_intents(backlog,intentname),asyncio.get_running_loop())
->>>>>>> a2aaf40e87112ca580380cf919ebc794821c210a
+                                asyncio.run_coroutine_threadsafe(cHandler.adapt_intents(backlog,intentname),asyncio.get_running_loop())
+                                
                         elif self.hotword not in line:
                             global EXECUTION_START
                             EXECUTION_START = time.perf_counter()
                             intentname = cHandler.recognize_intent(line=line,implicit=True)
                             hw_recognised=False
-                        if(not self.no_logging)
+                        if(not self.no_logging):
                             self.save_to_file(line=line,path=LOGPATH)
                         if self.savewav:
                             wav_name="command_recording_b("+str(RECORDNO)+").wav"
@@ -333,24 +329,19 @@ class CommandHandler():
         self.potentials={}
         self.server = Server()
 
-        
     def recognize_intent(self,line,implicit=False):
         """
-        [summary]
+        Recognise intent and return the resulting name
 
         Args:
-            line ([type]): [description]
-            implicit (bool, optional): [description]. Defaults to False.
+            line (str): line of transcribed text
+            implicit (bool, optional): Was a hot word detected in the command? Defaults to False.
 
         Returns:
-            [type]: [description]
+            str: IntentName
         """
-        #address = self.server +'/text-to-intent?implicit='+ str(implicit)
         res=self.server.text_to_intent(line,implicit)
-        #print("Checking for intents, posting data to: ",address)
-        #res=requests.post(os.path.join(address),data=line)
         try: 
-            #print(json.dumps(res.json(),indent=2))
             return res.json()["intent"]["name"]
         except TypeError:
             return None
@@ -359,7 +350,7 @@ class CommandHandler():
         """Adapt intent patterns with sentences that occured before the command
 
         Args:
-            backlog (list): list of last commands
+            backlog (list): list of last sentences before the recognised intent
             intentname (str): Name of recognised intent
         """
         for index,potential in enumerate(backlog):
@@ -395,6 +386,22 @@ class CommandHandler():
         print(self.potentials)
         return occurence
     
+    def save_to_file(self,path:str,line:str):
+        """
+        Saves the line to a text file
+
+        Args:
+            line(str): Line of transcribed text
+            path(str): Path to the file where the line should be stored
+        """
+        if os.path.isfile(path):
+            mode = "a"
+        else:
+            mode = "w"
+        backup = open(path, mode)
+        backup.write(line+"\n")
+        backup.close   
+    
     def addCommand(self,command,intent):
         """Add Command to Slot Values 
 
@@ -402,19 +409,16 @@ class CommandHandler():
             command (str): New command that should be recognised
             intent (str): intent that should be connected with the command
         """
-        # newData= {intent: [command]}
-        # headers = {'Content-Type':'application/json'}
-        # r= requests.post(os.path.join(self.server,'slots'),headers=headers,json=newData)
-
+       
         r = self.server.addCommand(command, intent)
 
         if r.text == 'OK':
-            # requests.post(os.path.join(self.server,'train'))
             self.server.train()
             global TRAIN_END
             TRAIN_END=time.perf_counter()
             logging.info("Training Done After %s s",str(TRAiN_END-TRAIN_START))
-            # requests.post(os.path.join(self.server,'handle-intent'))
+            benchmark_line=";".join([intent,command,str(TRAIN_END-TRAIN_START)])
+            self.save_to_file(TRAIN_PATH,benchmark_line)
             self.server.tts(command, intent)
     
     def update_intents(self,intent:str,newTrigger):
