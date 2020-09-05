@@ -13,7 +13,7 @@ import collections
 import time
 
 RESTSERVER='http://192.168.178.17:12101/api'
-THRESHOLD=3
+THRESHOLD=1
 LOGPATH="/sasha_sentence_logger/sasha_sentence_logger/transcript.txt"
 EVALPATH = "/sasha_sentence_logger/sasha_sentence_logger/benchmark_pi4.csv"
 TRAIN_PATH="/sasha_sentence_logger/sasha_sentence_logger/benchmark_train.csv"
@@ -27,6 +27,8 @@ SAVE_CMD=0.0
 ADAPT_START=0.0
 RECORDNO =0
 STARTED = False
+logging.getLogger("asyncio").setLevel(logging.DEBUG)
+
 class Server():
     """
     Abstract the connection to the API through this Server class.
@@ -222,7 +224,7 @@ class Conversation():
         logging.info('Initializing model...')
         dirname = os.getcwd()
         parentdir = os.path.split(dirname)[1]
-       logging.info(parentdir)
+        logging.info(parentdir)
         model_name = glob.glob(os.path.join(dirname,'lib/*.tflite'))[0]
         scorer_name = glob.glob(os.path.join(dirname,'lib/*.scorer'))[0]
         logging.info("Model: %s", model_name)
@@ -301,18 +303,22 @@ class Conversation():
                         WAV_LEN=str(COMMAND_END-COMMAND_START)
                         STT_LEN=str(TRANSCRIPTION_END-COMMAND_END)
                         logging.info("WAV Length: %s STT-Transcription Time: %s",WAV_LEN,STT_LEN)
+                        global EXECUTION_START
                         if self.hotword in line and len(line) != len(self.hotword):
                             hw_recognised=True
                             line=line.replace(self.hotword,'')
                             intentname = cHandler.recognize_intent(line=line) 
-                            global EXECUTION_START
                             EXECUTION_START = time.perf_counter()
                             logging.info("Intent Recognition Time: %s Execution Started after %s",str(EXECUTION_START-TRANSCRIPTION_END),str(EXECUTION_START-COMMAND_END))
                             if intentname:
-                                asyncio.run_coroutine_threadsafe(cHandler.adapt_intents(backlog,intentname),asyncio.get_running_loop())
+                                potcommands=[]
+                                for potcmd in backlog:
+                                    potcommands.append(potcmd)
+                                thread= Thread(target=cHandler.adapt_intents,args=(potcommands,intentname))
+                                thread.start()
+                                #loop.run_in_executor(None,cHandler.adapt_intents(backlog,intentname))
                                 
                         elif self.hotword not in line:
-                            global EXECUTION_START
                             EXECUTION_START = time.perf_counter()
                             intentname = cHandler.recognize_intent(line=line,implicit=True)
                             hw_recognised=False
@@ -364,24 +370,29 @@ class CommandHandler():
         """
         global ADAPT_START
         ADAPT_START= time.perf_counter()
+        update_list:list(tuple)=[]
         for index,potential in enumerate(backlog): 
             if index<len(backlog):
-                potcmd =  await self.save_potential_intent(intentname,potential)
+                potcmd =  self.save_potential_intent(intentname,potential)
                 if potcmd > THRESHOLD:
                     global TRAIN_START
                     TRAIN_START= time.perf_counter()
-                    updated = self.update_intents(intentname,potential)
+                    updated=self.update_intents(intentname,potential)
+            if updated:
+                update_list.append(updated)
         SAVE_CMD = time.perf_counter()
         logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
         # Train if new command detected
-        if updated:
+        if len(update_list)>0:
             self.server.train()
             global TRAIN_END
             TRAIN_END=time.perf_counter()
             logging.info("Training Done After %s s",str(TRAIN_END-TRAIN_START))
-            benchmark_line=";".join([intent,command,str(TRAIN_END-TRAIN_START),str(SAVE_CMD-ADAPT_START)])
-            self.save_to_file(TRAIN_PATH,benchmark_line)
-            self.server.tts(command, intent)
+            for intent,command in update_list:
+                benchmark_line=";".join([intent,command,str(TRAIN_END-TRAIN_START),str(SAVE_CMD-ADAPT_START)])
+                self.save_to_file(TRAIN_PATH,benchmark_line)
+                self.server.tts(command, intent)
+
     async def save_potential_intent(self,intent:str,potential:str):
         """
         Save the sentences leading up to the command and return the occurence. 
@@ -457,4 +468,5 @@ class CommandHandler():
                 cparse.write(update)
                 logging.info("sentences ini: %s",update.getvalue())
                 self.server.save_intents(update.getvalue())
-        return self.addCommand(newTrigger,intent)
+        if self.addCommand(newTrigger,intent)
+            return (newTrigger,intent)
