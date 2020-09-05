@@ -24,6 +24,7 @@ EXECUTION_START =0.0
 TRAIN_START=0.0
 TRAiN_END =0.0
 SAVE_CMD=0.0
+ADAPT_START=0.0
 RECORDNO =0
 STARTED = False
 class Server():
@@ -101,7 +102,15 @@ class Server():
         self.set_data(data)
 
         return self.post()
+    def getSlots(self):
+        """
+        Get existing Slots from Rhasspy API
 
+        Returns:
+            requests.Response: Json containing existing slots
+        """
+        self.set_url('slots')
+        return self.get()
     def train(self):
         """
         Force the server to train the known commands and intents.
@@ -347,22 +356,32 @@ class CommandHandler():
             return None
 
     async def adapt_intents(self,backlog:list,intentname:str):
-        """Adapt intent patterns with sentences that occured before the command
+        """Adapt intent patterns with sentences that occured before the command. If any commands were added retrain the assistant.
 
         Args:
             backlog (list): list of last sentences before the recognised intent
             intentname (str): Name of recognised intent
         """
-        for index,potential in enumerate(backlog):
+        global ADAPT_START
+        ADAPT_START= time.perf_counter()
+        for index,potential in enumerate(backlog): 
             if index<len(backlog):
                 potcmd =  await self.save_potential_intent(intentname,potential)
                 if potcmd > THRESHOLD:
                     global TRAIN_START
                     TRAIN_START= time.perf_counter()
-                    print("Possible new Command detected")
-                    self.update_intents(intentname,potential)
-                SAVE_CMD = time.perf_counter()
-                logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
+                    updated = self.update_intents(intentname,potential)
+        SAVE_CMD = time.perf_counter()
+        logging.info("Command Adaptation done after %s s",str(SAVE_CMD-EXECUTION_START))
+        # Train if new command detected
+        if updated:
+            self.server.train()
+            global TRAIN_END
+            TRAIN_END=time.perf_counter()
+            logging.info("Training Done After %s s",str(TRAIN_END-TRAIN_START))
+            benchmark_line=";".join([intent,command,str(TRAIN_END-TRAIN_START),str(SAVE_CMD-ADAPT_START)])
+            self.save_to_file(TRAIN_PATH,benchmark_line)
+            self.server.tts(command, intent)
     async def save_potential_intent(self,intent:str,potential:str):
         """
         Save the sentences leading up to the command and return the occurence. 
@@ -409,17 +428,12 @@ class CommandHandler():
             command (str): New command that should be recognised
             intent (str): intent that should be connected with the command
         """
-       
-        r = self.server.addCommand(command, intent)
-
-        if r.text == 'OK':
-            self.server.train()
-            global TRAIN_END
-            TRAIN_END=time.perf_counter()
-            logging.info("Training Done After %s s",str(TRAiN_END-TRAIN_START))
-            benchmark_line=";".join([intent,command,str(TRAIN_END-TRAIN_START)])
-            self.save_to_file(TRAIN_PATH,benchmark_line)
-            self.server.tts(command, intent)
+        req = self.server.getSlots()
+        slots=req.json()
+        if not command in slots[intent]:
+            r = self.server.addCommand(command, intent)
+        return r.txt == 'OK'
+        
     
     def update_intents(self,intent:str,newTrigger):
         """Get sentences.ini file from Rhasspy and include slot variable if necessary. Then add the command.
@@ -443,4 +457,4 @@ class CommandHandler():
                 cparse.write(update)
                 logging.info("sentences ini: %s",update.getvalue())
                 self.server.save_intents(update.getvalue())
-        self.addCommand(newTrigger,intent)
+        return self.addCommand(newTrigger,intent)
