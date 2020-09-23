@@ -372,6 +372,7 @@ class CommandHandler():
         ADAPT_START= time.perf_counter()
         update_list:list(tuple)=[]
         for index,potential in enumerate(backlog): 
+            updated = False
             if index<len(backlog):
                 potcmd =  self.save_potential_intent(intentname,potential)
                 if potcmd > THRESHOLD:
@@ -468,5 +469,5 @@ class CommandHandler():
                 cparse.write(update)
                 logging.info("sentences ini: %s",update.getvalue())
                 self.server.save_intents(update.getvalue())
-        if self.addCommand(newTrigger,intent)
+        if self.addCommand(newTrigger,intent):
             return (newTrigger,intent)
