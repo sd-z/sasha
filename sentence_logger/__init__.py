@@ -11,6 +11,7 @@ from threading import Thread
 from .conversation import VADAudio
 import collections
 import time
+import led
 
 RESTSERVER='http://192.168.178.17:12101/api'
 THRESHOLD=1
@@ -305,11 +306,13 @@ class Conversation():
                         logging.info("WAV Length: %s STT-Transcription Time: %s",WAV_LEN,STT_LEN)
                         global EXECUTION_START
                         if self.hotword in line and len(line) != len(self.hotword):
+                            Thread(target=led.startWorkingBlink).start()
                             hw_recognised=True
                             line=line.replace(self.hotword,'')
                             intentname = cHandler.recognize_intent(line=line) 
                             EXECUTION_START = time.perf_counter()
                             logging.info("Intent Recognition Time: %s Execution Started after %s",str(EXECUTION_START-TRANSCRIPTION_END),str(EXECUTION_START-COMMAND_END))
+                            led.stopWorkingBlink()
                             if intentname:
                                 potcommands=[]
                                 for potcmd in backlog:
