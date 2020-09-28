@@ -6,14 +6,14 @@ services:
             - ./sentence_logger:/sasha_sentence_logger/sasha_sentence_logger
             - /home/pi/.asoundrc:/etc/asound.conf
             - /home/pi/sasha/input_saves:/sasha_sentence_logger/input_saves
-        entrypoint: ["python","-m" ,"sasha_sentence_logger","--save","/sasha_sentence_logger/input_saves", "--aggressiveness","3","--wave","./input_waves/forward.wav"]
-        #command: python -m dev
+        # For saving wav files use: entrypoint: ["python","-m" ,"sasha_sentence_logger","--save","/sasha_sentence_logger/input_saves", "--aggressiveness","3"]
+        entrypoint: ["python","-m" ,"sasha_sentence_logger"]
         devices: 
             - "/dev/snd:/dev/snd"
         ports:
             - "4545:4545"
     hass:
-        image: shedz/hass:v0.1 #homeassistant/raspberrypi3-homeassistant:stable
+        image: shedz/hass:v0.1 
         init: true
         network_mode: host
         volumes:

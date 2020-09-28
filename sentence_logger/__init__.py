@@ -13,10 +13,10 @@ import collections
 import time
 import led
 
-RESTSERVER='http://192.168.178.17:12101/api'
+RESTSERVER='http://192.168.178.28:12101/api'
 THRESHOLD=1
 LOGPATH="/sasha_sentence_logger/sasha_sentence_logger/transcript.txt"
-EVALPATH = "/sasha_sentence_logger/sasha_sentence_logger/benchmark_pi4.csv"
+EVALPATH = "/sasha_sentence_logger/sasha_sentence_logger/benchmark.csv"
 TRAIN_PATH="/sasha_sentence_logger/sasha_sentence_logger/benchmark_train.csv"
 COMMAND_START=0.0
 COMMAND_END=0.0
@@ -136,7 +136,7 @@ class Server():
         Returns:
             requests.Response: The answer provided by the server
         """
-        data = 'Now you can use ' + command + ' to trigger ' + intent
+        data = 'Hey, now you can use ' + command + ' to trigger ' + intent
         self.set_url('text-to-speech')
         self.set_data(data)
         return self.post()
@@ -210,6 +210,7 @@ class Conversation():
         :param pauselength: Set length of pauses between sentences. Default  is 300ms.
         :param nospinner: Disable spinner.
         :param no_logging: Disable logging conversation to text file.
+        :param hotword: Hotword to be detected in commands
 
         """
         self.aggressiveness=aggressiveness
@@ -319,7 +320,6 @@ class Conversation():
                                     potcommands.append(potcmd)
                                 thread= Thread(target=cHandler.adapt_intents,args=(potcommands,intentname))
                                 thread.start()
-                                #loop.run_in_executor(None,cHandler.adapt_intents(backlog,intentname))
                                 
                         elif self.hotword not in line:
                             EXECUTION_START = time.perf_counter()
