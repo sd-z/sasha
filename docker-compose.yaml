@@ -8,10 +8,9 @@ services:
             - /home/pi/sasha/input_saves:/sasha_sentence_logger/input_saves
         # For saving wav files use: entrypoint: ["python","-m" ,"sasha_sentence_logger","--save","/sasha_sentence_logger/input_saves", "--aggressiveness","3"]
         entrypoint: ["python","-m" ,"sasha_sentence_logger"]
-        devices: 
-            - "/dev/snd:/dev/snd"
         ports:
             - "4545:4545"
+        privileged: true
     hass:
         image: shedz/hass:v0.1 
         init: true
