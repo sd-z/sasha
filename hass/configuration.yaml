@@ -3,7 +3,7 @@ default_config:
 #intent:
 rest_command:
     rhasspy_speak:
-        url: 'http://192.168.178.17:12101/api/text-to-speech'
+        url: 'http://192.168.178.28:12101/api/text-to-speech'
         method: 'POST'
         payload: '{{ payload }}'
         content_type: 'text/plain'

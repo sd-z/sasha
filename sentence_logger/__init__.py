@@ -30,7 +30,7 @@ def stopWorkingBlink():
     ACTIVE =False
 
 RESTSERVER='http://192.168.178.28:12101/api'
-THRESHOLD=1
+THRESHOLD=3
 LOGPATH="/sasha_sentence_logger/sasha_sentence_logger/transcript.txt"
 EVALPATH = "/sasha_sentence_logger/sasha_sentence_logger/benchmark.csv"
 TRAIN_PATH="/sasha_sentence_logger/sasha_sentence_logger/benchmark_train.csv"
@@ -411,7 +411,7 @@ class CommandHandler():
             for intent,command in update_list:
                 benchmark_line=";".join([intent,command,str(TRAIN_END-TRAIN_START),str(SAVE_CMD-ADAPT_START)])
                 self.save_to_file(TRAIN_PATH,benchmark_line)
-                self.server.tts(command, intent)
+                self.server.tts(intent, command)
 
     def save_potential_intent(self,intent:str,potential:str):
         """
