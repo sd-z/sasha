@@ -11,7 +11,23 @@ from threading import Thread
 from .conversation import VADAudio
 import collections
 import time
-import led
+import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
+from time import sleep # Import the sleep function from the time module
+GPIO.setwarnings(False) # Ignore warning for now
+GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
+GPIO.setup(22, GPIO.OUT, initial=GPIO.LOW) # Set pin 8 to be an output pin and set initial value to low (off)
+ACTIVE = True
+def startWorkingBlink():
+    global ACTIVE
+    ACTIVE=True
+    while ACTIVE: # Run forever
+        GPIO.output(22, GPIO.HIGH) # Turn on
+        sleep(.3) # Sleep for 1 second
+        GPIO.output(22, GPIO.LOW) # Turn off
+        sleep(.3) # Sleep for 1 second
+def stopWorkingBlink():
+    global ACTIVE
+    ACTIVE =False
 
 RESTSERVER='http://192.168.178.28:12101/api'
 THRESHOLD=1
@@ -278,6 +294,7 @@ class Conversation():
                 if frame is not None:
                     if spinner and not self.started: 
                         spinner.start()
+                        Thread(target=startWorkingBlink).start()
                         global COMMAND_START
                         COMMAND_START=time.perf_counter()
                         self.started= True
@@ -307,13 +324,11 @@ class Conversation():
                         logging.info("WAV Length: %s STT-Transcription Time: %s",WAV_LEN,STT_LEN)
                         global EXECUTION_START
                         if self.hotword in line and len(line) != len(self.hotword):
-                            Thread(target=led.startWorkingBlink).start()
                             hw_recognised=True
                             line=line.replace(self.hotword,'')
                             intentname = cHandler.recognize_intent(line=line) 
                             EXECUTION_START = time.perf_counter()
                             logging.info("Intent Recognition Time: %s Execution Started after %s",str(EXECUTION_START-TRANSCRIPTION_END),str(EXECUTION_START-COMMAND_END))
-                            led.stopWorkingBlink()
                             if intentname:
                                 potcommands=[]
                                 for potcmd in backlog:
@@ -333,6 +348,7 @@ class Conversation():
                             wav_data = bytearray()
                             benchmarkline = ";".join([wav_name,WAV_LEN,STT_LEN,str(EXECUTION_START-TRANSCRIPTION_END),line,intentname,str(hw_recognised)])  
                             self.save_to_file(line=benchmarkline,path=EVALPATH)
+                    stopWorkingBlink()
                     stream_context = self.model.createStream()
         except KeyboardInterrupt:
             print('stopping...')
