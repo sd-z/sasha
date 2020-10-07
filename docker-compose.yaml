@@ -25,6 +25,8 @@ services:
         image: shedz/rhasspy:v0.5
         volumes:
             - /home/pi/.config/rhasspy/profiles:/profiles
+            - /home/pi/sasha/rhasspy/rhasspy-dialogue-hermes/rhasspydialogue_hermes:/usr/lib/rhasspy/rhasspy-dialogue-hermes/rhasspydialogue_hermes
+            - /home/pi/sasha/rhasspy/rhasspy-hermes/rhasspyhermes:/usr/lib/rhasspy/rhasspy-hermes/rhasspydialogue_hermes
         devices:
             - "/dev/snd:/dev/snd"
         entrypoint: ["bash","/usr/lib/rhasspy/bin/rhasspy-voltron", "--user-profiles", "/profiles", "--profile", "en"]
